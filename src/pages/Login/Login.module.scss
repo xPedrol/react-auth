@@ -1,0 +1,275 @@
+@use "../../../utils/styles/breakpoints" as *;
+
+.container {
+  width: 100%;
+  height: 100vh;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  background-color: #ffffff;
+  max-height: 750px;
+  height: 100%;
+  border-radius: 15px;
+  display: flex;
+  min-width: 310px;
+  overflow: hidden;
+}
+
+.cardForm {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: cardFormAnimation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.25s;
+  opacity: 0;
+}
+
+@keyframes cardFormAnimation {
+  0% {
+    opacity: 1;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cardImageDiv {
+  border-radius: 0 15px 15px 0;
+  flex: 50%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  animation-name: cardImageAnimation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  z-index: 999 !important;
+}
+@keyframes cardImageAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(60%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 15px 15px 0;
+  opacity: 0;
+  transition: opacity 2s, margin-right 2s;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.cardImage.active {
+  opacity: 1;
+  transition: opacity 2s, margin-right 2s;
+  margin-right: 0;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 420px;
+}
+
+.formInputDiv {
+  display: flex;
+  width: 100%;
+}
+
+.formInputDiv:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+
+.formInput {
+  border: 1px solid #d9d9d9;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.inputBtn {
+  align-self: stretch;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border: 1px solid #d9d9d9;
+  background-color: unset;
+  border-right: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 55px;
+}
+
+.inputBtnIcon {
+  font-size: 25px;
+  color: #d9d9d9;
+}
+
+.rememberMeLogin {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rememberMeDiv {
+  label {
+    margin-left: 10px;
+  }
+
+  label, input {
+    cursor: pointer;
+  }
+}
+
+.loginBtn {
+  padding: 17px 22px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  background-color: #4786fd;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.loginBtn:hover {
+  background-color: #1465fd;
+}
+
+.registerDiv {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.registerP {
+  color: #60a6ef;
+  cursor: pointer;
+}
+
+.registerP:hover, .forgotPasswordP:hover {
+  text-decoration: underline;
+}
+
+.forgotPasswordP {
+  cursor: pointer;
+  color: #969393;
+}
+
+.orDiv {
+  margin: 45px 0 45px 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.orDiv:before, .orDiv:after {
+  width: 100%;
+  content: '';
+  border: 1px solid #eeecec;
+}
+
+.orP {
+  display: flex;
+  align-items: flex-start;
+  padding-inline: 20px;
+  color: #969393;
+}
+
+.moreLogins {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.googleLoginBtn, .twitterLoginBtn, .facebookLoginBtn {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.googleLoginBtn {
+  background-color: #f34334;
+}
+
+.twitterLoginBtn {
+  background-color: #05abef;
+}
+
+.facebookLoginBtn {
+  background-color: #385697;
+  flex-grow: 1;
+}
+
+.moreLoginsInputBtn.facebook {
+  background-color: #293c69 !important;
+}
+
+.moreLoginsInputBtn.twitter {
+  background-color: #0b95cb !important;
+}
+
+.moreLoginsInputBtn.google {
+  background-color: #c33125 !important;
+}
+
+.moreLoginsBtnDiv {
+  margin: 10px 0 10px 0;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.moreLoginsInputBtn {
+  @extend .inputBtn;
+  border: none;
+}
+
+.moreLoginsInputBtnIcon {
+  @extend .inputBtnIcon;
+  color: white;
+}
+
+@include max($lg) {
+  .cardImageDiv {
+    display: none;
+  }
+}
+
+@include max($is) {
+  .form {
+    padding-inline: 20px;
+  }
+}
