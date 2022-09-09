@@ -58,6 +58,7 @@
   animation-iteration-count: 1;
   z-index: 999 !important;
 }
+
 @keyframes cardImageAnimation {
   0% {
     opacity: 1;
@@ -91,6 +92,20 @@
   flex-wrap: wrap;
   width: 100%;
   max-width: 420px;
+}
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 15px;
+}
+
+.col6 {
+  grid-column: span 6;
+  .formInput{
+    border-radius: 5px !important;
+  }
 }
 
 .formInputDiv {
@@ -272,4 +287,10 @@
   .form {
     padding-inline: 20px;
   }
+}
+.registerBtnDiv{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
 }
