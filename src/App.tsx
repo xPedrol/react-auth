@@ -7,21 +7,24 @@ import Register from "./pages/Register";
 import Login from "./pages/Login/Login";
 import Layout from "./components/Layout/Layout";
 import {AuthCard} from "./components/AuthCard/AuthCard";
+import {AuthProvider} from "./contexts/auth.context";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route path={'/dashboard'} element={<Dashboard/>}/>
-                    <Route path={'/'} element={<AuthCard/>}>
-                        <Route path={'register'} element={<Register/>}/>
-                        <Route path={'/'} element={<Login/>}/>
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout/>}>
+                        <Route path={'/dashboard'} element={<Dashboard/>}/>
+                        <Route path={'/'} element={<AuthCard/>}>
+                            <Route path={'register'} element={<Register/>}/>
+                            <Route path={'/'} element={<Login/>}/>
+                        </Route>
+                        <Route path={'*'} element={<NotFound/>}/>
                     </Route>
-                    <Route path={'*'} element={<NotFound/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
     );
 }
 

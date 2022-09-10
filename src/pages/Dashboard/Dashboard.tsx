@@ -1,4 +1,5 @@
 import styles from './Dashboard.module.scss';
+import {withAuth} from "../../components/ProtectedRoute";
 
 const Dashboard = () => {
     return (
@@ -6,4 +7,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

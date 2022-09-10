@@ -1,41 +1,63 @@
 import styles from "./Login/Login.module.scss";
 import {FaUserCircle} from "react-icons/fa";
-import {RiKey2Fill} from "react-icons/ri";
 import {MdEmail} from "react-icons/md";
 import {AiFillFacebook, AiOutlineGoogle, AiOutlineTwitter} from "react-icons/ai";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
+import {TUser, User} from "../models/User.model";
+import {useAuth} from "../contexts/auth.context";
 
 const Register = () => {
+    const navigate = useNavigate();
+    const {register: authRegister} = useAuth();
+    const {register, handleSubmit} = useForm<TUser>();
+    const onSubmit = (data: TUser) => {
+        console.log(data);
+        if (data) {
+            const user: TUser = new User(data);
+            if (authRegister(user)) {
+                alert("Register success");
+                navigate("/");
+            } else {
+                alert("Register failed");
+            }
+        }
+    };
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <h1 className={styles.formTitle}>Register</h1>
             <div className={styles.formInputDiv}>
                 <button type={'button'} className={styles.inputBtn}>
                     <FaUserCircle className={styles.inputBtnIcon}/>
                 </button>
-                <input className={styles.formInput} placeholder={'Type your login...'}/>
+                <input {...register('name', {required: true})} className={styles.formInput}
+                       placeholder={'Type your login...'}/>
             </div>
             <div className={styles.formInputDiv}>
                 <button type={'button'} className={styles.inputBtn}>
                     <MdEmail className={styles.inputBtnIcon}/>
                 </button>
-                <input type={'email'} className={styles.formInput} placeholder={'Type your email...'}/>
+                <input {...register('email', {required: true})} type={'email'} className={styles.formInput}
+                       placeholder={'Type your email...'}/>
             </div>
             <div className={styles.row}>
                 <div className={styles.col6}>
                     <div className={styles.formInputDiv}>
-                        <input type={'password'} className={styles.formInput}
+                        <input {...register('password', {required: true})} type={'password'}
+                               className={styles.formInput}
                                placeholder={'Type your password...'}/>
                     </div>
                 </div>
                 <div className={styles.col6}>
                     <div className={styles.formInputDiv}>
-                        <input type={'password'} className={styles.formInput}
+                        <input {...register('confirmPassword', {required: true})} type={'password'}
+                               className={styles.formInput}
                                placeholder={'Confirm your password...'}/>
                     </div>
                 </div>
             </div>
             <div className={styles.registerBtnDiv}>
-                <button className={styles.loginBtn}>Register</button>
+                <button className={styles.loginBtn} type={'submit'}>Register</button>
             </div>
             <div className={styles.registerDiv}>
                 <Link to={'/'}><p className={styles.registerP}>Login</p></Link>

@@ -2,46 +2,41 @@ import styles from './Login.module.scss';
 import {FaUserCircle} from "react-icons/fa";
 import {RiKey2Fill} from "react-icons/ri";
 import {AiFillFacebook, AiOutlineGoogle, AiOutlineTwitter} from "react-icons/ai";
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../contexts/auth.context";
+import {TUser} from "../../models/User.model";
+import {useForm} from "react-hook-form";
 
 const Login = () => {
-    const [bg, setBg] = useState<string | null>(null);
-    useEffect(() => {
-        const cardForm = document.querySelector(`.${styles.cardForm}`);
-    }, []);
-    useEffect(() => {
-        const activeCardImage = document.querySelector(`.${styles.cardImage}.${styles.active}`);
-        // console.warn(activeCardImage);
-        // cardImage.animate()
-        if (bg) {
-            setTimeout(() => {
-                let random = bg;
-                while (random === bg) {
-                    random = String(Math.floor(Math.random() * 4) + 1);
-                }
-                const currentCardImage = document.querySelector(`.${styles.cardImage}.bg${random}`);
-                activeCardImage?.classList.remove(styles.active);
-                currentCardImage?.classList.add(styles.active);
-                setBg(random);
-            }, 5000);
-        } else {
-            setBg('1');
+    const navigate = useNavigate();
+    const {login: authLogin} = useAuth();
+    const {register, handleSubmit} = useForm<TUser>();
+    const onSubmit = (data: TUser) => {
+        console.log(data);
+        if (data) {
+            if (authLogin(data.name, data.password)) {
+                alert("Login success");
+                navigate("/dashboard");
+            } else {
+                alert("Login failed");
+            }
         }
-    }, [bg]);
+    };
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <h1 className={styles.formTitle}>Login</h1>
             <div className={styles.formInputDiv}>
                 <button type={'button'} className={styles.inputBtn}>
                     <FaUserCircle className={styles.inputBtnIcon}/>
                 </button>
-                <input className={styles.formInput} placeholder={'Type your login...'}/>
+                <input {...register('name', {required: true})} className={styles.formInput}
+                       placeholder={'Type your login...'}/>
             </div>
             <div className={styles.formInputDiv}>
                 <button type={'button'} className={styles.inputBtn}>
                     <RiKey2Fill className={styles.inputBtnIcon}/>
                 </button>
-                <input type={'password'} className={styles.formInput}
+                <input {...register('password', {required: true})} type={'password'} className={styles.formInput}
                        placeholder={'Type your password...'}/>
             </div>
             <div className={styles.rememberMeLogin}>

@@ -1,11 +1,28 @@
 import styles from "../../pages/Login/Login.module.scss";
-import {ReactNode} from "react";
+import {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 
-type LoginFormProps = {
-    children: ReactNode;
-}
 export const AuthCard = () => {
+    const [bg, setBg] = useState<string | null>(null);
+    useEffect(() => {
+        const activeCardImage = document.querySelector(`.${styles.cardImage}.${styles.active}`);
+        // console.warn(activeCardImage);
+        // cardImage.animate()
+        if (bg) {
+            setTimeout(() => {
+                let random = bg;
+                while (random === bg) {
+                    random = String(Math.floor(Math.random() * 4) + 1);
+                }
+                const currentCardImage = document.querySelector(`.${styles.cardImage}.bg${random}`);
+                activeCardImage?.classList.remove(styles.active);
+                currentCardImage?.classList.add(styles.active);
+                setBg(random);
+            }, 5000);
+        } else {
+            setBg('1');
+        }
+    }, [bg]);
     return (
         <div className={styles.container}>
             <div className={styles.card}>
