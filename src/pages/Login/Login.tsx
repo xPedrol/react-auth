@@ -12,7 +12,6 @@ const Login = () => {
     const {login: authLogin} = useAuth();
     const {register, handleSubmit} = useForm<TUser>();
     const onSubmit = (data: TUser) => {
-        console.log(data);
         if (data) {
             if (authLogin(data.name, data.password)) {
                 alert("Login success");

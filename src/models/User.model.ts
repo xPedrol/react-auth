@@ -22,7 +22,8 @@ export class User {
         this.id = uuidv4();
         this.name = user.name;
         this.email = user.email;
-        this.password = md5(user.password);
+        // this.password = md5(user.password);
+        this.password = user.password;
     }
 
     verifyPassword(): boolean {
@@ -30,6 +31,8 @@ export class User {
     }
 
     comparePassword(password: string): boolean {
-        return this.password === md5(password);
+        console.warn(this.password,password)
+        // return this.password === md5(password);
+        return this.password === password;
     }
 }

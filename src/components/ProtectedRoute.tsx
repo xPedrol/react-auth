@@ -3,8 +3,8 @@ import {useAuth} from "../contexts/auth.context";
 
 export const withAuth = (Component: any) => {
     return () => {
-        const {user} = useAuth();
-        if (user) {
+        const {isLoggedIn} = useAuth();
+        if (isLoggedIn()) {
             return <Component/>;
         } else {
             alert('Not authorized');
